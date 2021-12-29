@@ -1,0 +1,81 @@
+﻿@model Assignment1.Models.ViewModels.ViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table table-dark table-striped borderless">
+    <thead>
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Enrollment Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                </td>
+                <td>
+                    <div class="btn-group mr-1" role="group">
+                        <a class="btn btn-secondary" asp-action="Index" asp-route-id="@item.ID">Select</a>
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a class="btn btn-secondary" asp-action="EditMemberships" asp-route-id="@item.ID">Edit Memberships</a>
+                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.Communities != null)
+{
+    <h3>
+        Member of the following communities
+    </h3>
+    <table class="table table-dark table-striped borderless">
+        <thead>
+            <tr>
+                @if (Model.Communities.Count() > 0)
+                {
+                    <th> Name </th>
+                }
+                else
+                {
+                    <th> No membership record exist </th>
+                }
+            </tr>
+        </thead>
+        @foreach (var item in Model.Communities)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,55 @@
+﻿@model Assignment1.Models.ViewModels.ViewModel
+
+
+@{
+    ViewData["Title"] = "Index - Student Communities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var community = @Model.Communities.First();
+}
+
+<h1>Show ads for community @community.Title</h1>
+
+<p>
+    <div class="btn-group" role="group">
+        <a class="btn btn-primary" asp-action="Upload" asp-route-id="@community.ID">Upload New</a>
+        <a class="btn btn-danger" asp-controller="Communities" asp-action="Index">Back to List</a>
+    </div>
+</p>
+@if (Model.Advertisements.Count() == 0)
+{
+    <p>There are no files to display.</p>
+}
+else
+{
+    <table class="table table-dark borderless">
+        <thead>
+            <tr>
+                <th>
+                    File Name
+                </th>
+                <th>
+                    Image
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Advertisements)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                    <td>
+                        <img src="@item.Url" style="max-width: 400px;" />
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AdsId">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

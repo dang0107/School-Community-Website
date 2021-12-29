@@ -1,0 +1,25 @@
+﻿@model Assignment1.Models.ViewModels.ViewModel
+@{
+    ViewData["Title"] = "Create - Student Communities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var community = @Model.Communities.First();
+}
+
+<h1>Upload</h1>
+<h2>Upload an ad for community @community.Title </h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Upload" asp-route-communityID="@community.ID" enctype="multipart/form-data">
+            <div class="form-group">
+                <input class="mt-2" name="file" type="file">
+            </div>
+
+            <div class="btn-group mt-2" role="group">
+                <button name="upload" class="btn btn-primary">Upload Now</button>
+                <a class="btn btn-secondary" asp-action="Index" asp-route-id="@community.ID">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
